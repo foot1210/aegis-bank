@@ -1,35 +1,102 @@
-@import './style/color.css';
+/* ==========================================================
+   AEGIS BANQUE - CSS PRINCIPAL
+   Structure : reset → base → layout → composants → responsive
+========================================================== */
 
-/* RESET */
+/* -------------------------------------------------------
+   1. VARIABLES GLOBALES
+------------------------------------------------------- */
+:root {
+    /* Couleurs */
+    --clr-primary: red;
+    --clr-primary-dark: darkred;
+    --clr-text: #333;
+    --clr-bg: #fff;
+    --clr-bg-alt: #f0f0f0;
+
+    /* Typographie */
+    --fs-title: clamp(1.8rem, 4vw, 3rem);
+    --fs-subtitle: clamp(1.2rem, 3vw, 1.6rem);
+    --fs-logo: clamp(1.6rem, 3vw, 2rem);
+    --fs-btn: clamp(1rem, 3vw, 1.2rem);
+
+    /* Espacements */
+    --sp-xs: 0.5rem;
+    --sp-sm: 1rem;
+    --sp-md: 1.5rem;
+    --sp-lg: 2rem;
+
+    /* Arrondis */
+    --radius-sm: 5px;
+    --radius-md: 10px;
+
+    /* Durées animations */
+    --anim-fast: 0.25s;
+    --anim-normal: 0.6s;
+}
+
+/* -------------------------------------------------------
+   2. ANIMATIONS
+------------------------------------------------------- */
+/* Animation contenu principal */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Micro-interaction bouton */
+@keyframes buttonPop {
+    50% { transform: scale(1.08); }
+}
+
+/* Micro-interaction menu-burger */
+@keyframes wiggle {
+    0% { transform: rotate(0); }
+    25% { transform: rotate(10deg); }
+    50% { transform: rotate(-10deg); }
+    75% { transform: rotate(6deg); }
+    100% { transform: rotate(0); }
+}
+
+/* -------------------------------------------------------
+   3. RESET
+------------------------------------------------------- */
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-/* GENERAL */
+/* -------------------------------------------------------
+   4. BASE
+------------------------------------------------------- */
 body {
     font-family: Arial, sans-serif;
-    color: #333;
-    background-color: #fff;
+    background: var(--clr-bg);
+    color: var(--clr-text);
+
     display: flex;
     flex-direction: column;
     min-height: 100vh;
     overflow-x: hidden;
+
+    animation: fadeIn var(--anim-normal) ease-out;
 }
 
-/* NAVBAR */
+/* -------------------------------------------------------
+   5. NAVBAR
+------------------------------------------------------- */
 .navbar {
-    background-color: red;
+    background: var(--clr-primary);
     color: #fff;
-    padding: 15px;
+    padding: var(--sp-md);
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
 
 .logo {
-    font-size: 1.6em;
+    font-size: var(--fs-logo);
     font-weight: bold;
 }
 
@@ -37,125 +104,115 @@ body {
     background: none;
     border: none;
     color: #fff;
-    font-size: 1.8em;
+    font-size: 2rem;
     cursor: pointer;
+    transition: transform var(--anim-fast);
 }
 
-/* MAIN */
+.menu-burger:hover {
+    animation: wiggle 0.4s ease-out;
+}
+
+/* -------------------------------------------------------
+   6. MAIN CONTENT
+------------------------------------------------------- */
 .main-content {
     flex: 1;
+    padding: var(--sp-lg);
+    background: var(--clr-bg-alt);
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    padding: 20px;
-    background-color: #f0f0f0;
 }
 
 .title {
-    font-size: 1.8em;
-    color: red;
+    font-size: var(--fs-title);
+    color: var(--clr-primary);
     text-align: center;
 }
 
 .subtitle {
-    font-size: 1.2em;
-    margin-bottom: 20px;
+    font-size: var(--fs-subtitle);
+    margin-bottom: var(--sp-md);
     text-align: center;
 }
 
-/* CARD */
+/* -------------------------------------------------------
+   7. CARD
+------------------------------------------------------- */
 .card {
-    background-color: #fff;
-    border: 1px solid red;
-    border-radius: 10px;
-    padding: 20px;
+    background: #fff;
+    border: 2px solid var(--clr-primary);
+    border-radius: var(--radius-md);
+    padding: var(--sp-lg);
+    max-width: 500px;
+    width: min(90%, 500px);
     text-align: center;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    max-width: 80%;
+
+    animation: fadeIn 1s ease-out;
 }
 
 .card h3 {
-    color: red;
-    margin-bottom: 10px;
+    color: var(--clr-primary);
+    margin-bottom: var(--sp-sm);
 }
 
 .card p {
-    margin-bottom: 15px;
+    margin-bottom: var(--sp-md);
 }
 
+/* CTA BUTTON */
 .cta-button {
-    background-color: red;
+    background: var(--clr-primary);
     color: #fff;
     border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
+    padding: var(--sp-sm) var(--sp-lg);
+    border-radius: var(--radius-sm);
+    font-size: var(--fs-btn);
     cursor: pointer;
-    font-size: 1em;
-    transition: 0.3s;
+
+    transition: background var(--anim-fast), transform var(--anim-fast);
 }
 
 .cta-button:hover {
-    background-color: darkred;
+    background: var(--clr-primary-dark);
+    animation: buttonPop 0.3s ease-out;
 }
 
-/* FOOTER */
+/* -------------------------------------------------------
+   8. FOOTER
+------------------------------------------------------- */
 .footer {
-    background-color: red;
+    background: var(--clr-primary);
     color: #fff;
-    padding: 10px;
+    padding: var(--sp-md);
     text-align: center;
 }
 
 .social-links a {
     color: #fff;
-    margin: 0 10px;
     text-decoration: none;
+    margin: 0 var(--sp-xs);
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
 }
 
 .social-links a:hover {
     text-decoration: underline;
 }
 
-/* H6 styles */
-.underlined {
-    text-decoration: underline;
-}
+/* -------------------------------------------------------
+   9. UTILITAIRES
+------------------------------------------------------- */
+.underlined { text-decoration: underline; }
+.capitalized { text-transform: uppercase; }
 
-.capitalized {
-    text-transform: uppercase;
-}
-
-/* RESPONSIVE */
-@media (min-width: 769px) {
-    .navbar {
-        padding: 20px;
-    }
-
-    .logo {
-        font-size: 2em;
-    }
-
-    .menu-burger {
-        font-size: 2em;
-    }
-
-    .title {
-        font-size: 3em;
-    }
-
-    .subtitle {
-        font-size: 1.5em;
-    }
-
-    .card {
-        max-width: 50%;
-        padding: 30px;
-    }
-
-    .cta-button {
-        font-size: 1.2em;
-    }
+/* -------------------------------------------------------
+   10. RESPONSIVE MINIMAL
+------------------------------------------------------- */
+@media (min-width: 768px) {
+    .navbar { padding: var(--sp-lg); }
 }
 
 
